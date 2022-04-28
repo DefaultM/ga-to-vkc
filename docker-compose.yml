@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  db:
+    restart: always
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    networks:
+      - net
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+
+  web:
+    restart: always
+    build: .
+    depends_on:
+      - db
+    networks:
+      - net
+    command: bash -c "python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000"
+
+  nginx:
+    restart: always
+    image: "nginx:latest"
+    ports:
+      - "8000:8000"
+    networks:
+      - net
+    volumes:
+      - ./config/nginx/django.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - web
+
+networks:
+  net:
