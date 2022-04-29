@@ -7,16 +7,16 @@ on:
 jobs:
   creat_env_file:
     runs-on: ubuntu-latest
-    env:
-      DIRECTORY: ${{ github.workspace }}
+
     steps:
       - name: Make envfile
         uses: SpicyPizza/create-envfile@v1
         with:
-          DEBUG: True
-          DB_TYPE: "PROD"
-          PROD_DATABASE_NAME: "DB"
-          PROD_DATABASE_USER: "User"
-          PROD_DATABASE_PASS: "Password"
-          PROD_DATABASE_HOST: "db_host"
-          PROD_DATABASE_PORT: "db_port"
+          envkey_DEBUG: True
+          envkey_DB_TYPE: "PROD"
+          envkey_PROD_DATABASE_NAME: "DB"
+          envkey_PROD_DATABASE_USER: "User"
+          envkey_PROD_DATABASE_PASS: "Password"
+          envkey_PROD_DATABASE_HOST: "db_host"
+          envkey_PROD_DATABASE_PORT: "db_port"
+          file_name: .env
